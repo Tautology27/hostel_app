@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
-  web:
-    build: .
-    container_name: hostel_web
+  app:
+    build:
+      context: ./app
     ports:
       - "8080:80"
     volumes:
@@ -12,29 +10,20 @@ services:
       - db
 
   db:
-    image: mysql:8.0
-    container_name: hostel_db
-    restart: always
+    image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: hotel_db
     volumes:
-      - db_data:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: hostel_phpmyadmin
-    restart: always
+      - ./db:/docker-entrypoint-initdb.d
     ports:
-      - "8081:80"
-    environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    depends_on:
-      - db
+      - "3306:3306"
 
-volumes:
-  db_data:
+  loadbalancer:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./loadbalancer/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
