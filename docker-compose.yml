@@ -14,7 +14,7 @@ services:
       MYSQLHOST: db
       MYSQLUSER: root
       MYSQLPASSWORD: rootpass
-      MYSQLDATABASE: hotel_db
+      MYSQLDATABASE: hostel_db
       MYSQLPORT: 3306
 
   db:
@@ -22,7 +22,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: hotel_db
+      MYSQL_DATABASE: hostel_db
     ports:
       - "3306:3306"
     volumes:
