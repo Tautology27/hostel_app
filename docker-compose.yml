@@ -11,10 +11,10 @@ services:
     depends_on:
       - db
     environment:
-      MYSQLHOST:
-      MYSQLUSER:
-      MYSQLPASSWORD:
-      MYSQLDATABASE:
+      MYSQLHOST: db
+      MYSQLUSER: root
+      MYSQLPASSWORD: rootpass
+      MYSQLDATABASE: hostel_db
       MYSQLPORT: 3306
 
   db:
