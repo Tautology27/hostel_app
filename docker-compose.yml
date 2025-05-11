@@ -11,18 +11,18 @@ services:
     depends_on:
       - db
     environment:
-      MYSQLHOST: db
-      MYSQLUSER: root
-      MYSQLPASSWORD: rootpass
-      MYSQLDATABASE: hostel_db
-      MYSQLPORT: 3306
+      MYSQLHOST: ${MYSQLHOST}
+      MYSQLUSER: ${MYSQLUSER}
+      MYSQLPASSWORD: ${MYSQLPASSWORD}
+      MYSQLDATABASE: ${MYSQLDATABASE}
+      MYSQLPORT: ${MYSQLPORT}
 
   db:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: hostel_db
+      MYSQL_ROOT_PASSWORD: ${MYSQLPASSWORD}
+      MYSQL_DATABASE: ${MYSQLDATABASE}
     ports:
       - "3306:3306"
     volumes:
