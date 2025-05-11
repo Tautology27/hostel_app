@@ -1,10 +1,13 @@
 <?php
-$host = 'db'; // service name, not localhost
-$user = 'root';
-$password = 'rootpass'; // must match MYSQL_ROOT_PASSWORD
-$dbname = 'hotel_db';   // must match MYSQL_DATABASE
+// Read database connection info from environment variables
+$host = getenv("MYSQLHOST") ?: "localhost";
+$user = getenv("MYSQLUSER") ?: "root";
+$pass = getenv("MYSQLPASSWORD") ?: "";
+$db   = getenv("MYSQLDATABASE") ?: "hotel_db";
+$port = getenv("MYSQLPORT") ?: 3306;
 
-$conn = new mysqli($host, $user, $password, $dbname);
+// Connect to MySQL
+$conn = new mysqli($host, $user, $pass, $db, $port);
 
 // Check connection
 if ($conn->connect_error) {
