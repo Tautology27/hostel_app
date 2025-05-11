@@ -1,10 +1,11 @@
 <?php
-$host = 'db'; // service name, not localhost
-$user = 'root';
-$password = 'rootpass'; // must match MYSQL_ROOT_PASSWORD
-$dbname = 'hotel_db';   // must match MYSQL_DATABASE
+$host = "db";  // Docker service name for the database
+$user = "root";
+$password = "rootpass";  // This must match the MYSQL_ROOT_PASSWORD in docker-compose
+$database = "hotel_db";
+$port = 3306;
 
-$conn = new mysqli($host, $user, $password, $dbname);
+$conn = new mysqli($host, $user, $password, $database, $port);
 
 // Check connection
 if ($conn->connect_error) {

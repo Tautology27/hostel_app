@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   app:
     build:
@@ -8,6 +10,8 @@ services:
       - ./app:/var/www/html
     depends_on:
       - db
+    networks:
+      - mynetwork
 
   db:
     image: mysql:5.7
@@ -18,12 +22,20 @@ services:
       - ./db:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
+    networks:
+      - mynetwork
 
   loadbalancer:
     image: nginx:latest
     ports:
       - "80:80"
     volumes:
-      - ./loadbalancer/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./loadbalancer/nginx.conf:/etc/nginx/nginx.conf:ro # Fixed path for nginx.conf inside the loadbalancer folder
     depends_on:
       - app
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
