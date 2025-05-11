@@ -1,11 +1,14 @@
 <?php
-$host = "db";  // Docker service name for the database
-$user = "root";
-$password = "rootpass";  // Must match MYSQL_ROOT_PASSWORD in docker-compose
-$database = "hotel_db";
-$port = 3306;
+// Check if running in Railway (REMOTE_ENV will usually be set)
+$isRailway = getenv("RAILWAY_ENVIRONMENT") !== false;
 
-$conn = new mysqli($host, $user, $password, $database, $port);
+$host = $isRailway ? getenv("MYSQLHOST") : "db";
+$user = $isRailway ? getenv("MYSQLUSER") : "root";
+$pass = $isRailway ? getenv("MYSQLPASSWORD") : "rootpass";
+$db   = $isRailway ? getenv("MYSQLDATABASE") : "hotel_db";
+$port = $isRailway ? getenv("MYSQLPORT") : 3306;
+
+$conn = new mysqli($host, $user, $pass, $db, $port);
 
 // Check connection
 if ($conn->connect_error) {
