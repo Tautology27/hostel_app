@@ -8,7 +8,7 @@ $port = (int)(getenv("MYSQLPORT") ?: 3306);
 $tries = 5;
 
 while ($tries > 0) {
-    $conn =  mysqli($host, $user, $pass, $db, $port);
+    $conn = new mysqli($host, $user, $pass, $db, $port);
     if ($conn->connect_error) {
         echo "Waiting for MySQL... (" . $conn->connect_error . ")\n";
         sleep(3);
