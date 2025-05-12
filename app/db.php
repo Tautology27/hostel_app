@@ -1,8 +1,8 @@
 <?php
-$host = "db"; // This should match your MySQL service name in docker-compose.yml
-$user = getenv("MYSQLUSER");
-$pass = getenv("MYSQLPASSWORD");
-$db   = getenv("MYSQLDATABASE");
+$host = getenv("MYSQLHOST") ?: "db";
+$user = getenv("MYSQLUSER") ?: "root";
+$pass = getenv("MYSQLPASSWORD") ?: "";
+$db   = getenv("MYSQLDATABASE") ?: "hostel_system";
 $port = (int)(getenv("MYSQLPORT") ?: 3306);
 
 $tries = 5;
